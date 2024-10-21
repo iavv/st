@@ -1,0 +1,21 @@
+#3) SARIMA MODEL FITTING
+#a)
+sales_data <- c(200, 220, 240, 210, 230, 250, 300, 270, 260, 280, 310, 330, 
+                220, 230, 250, 240, 260, 280, 320, 300, 290, 310, 330, 350, 
+                240, 250, 270, 260, 280, 300, 340, 320, 310, 330, 350, 370, 
+                260, 270, 290, 280, 300, 320, 360, 340, 330, 350, 370, 390, 
+                280, 290, 310, 300, 320, 340, 380, 360, 350, 370, 390, 410)
+
+# Convert to time series object
+
+sales_ts <- ts(sales_data, start = c(2019, 1), frequency = 12)
+
+# Plot the sales data
+plot(sales_ts, main = "Monthly Sales Data", xlab = "Time", ylab = "Sales", col = "blue", lwd = 2)
+# Fit a SARIMA model using auto.arima
+sarima_model <- auto.arima(sales_ts, seasonal = TRUE)
+summary(sarima_model)
+
+#b)
+# Plot residuals to check for white noise
+checkresiduals(sarima_model)
