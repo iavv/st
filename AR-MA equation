@@ -1,0 +1,64 @@
+# Load necessary library
+library(forecast)
+
+# (a) Simulate 100 observations from MA(1) process
+set.seed(123)  # Set seed for reproducibility
+n <- 100
+theta <- 0.5  # MA(1) parameter
+ma1_process <- arima.sim(model = list(ma = theta), n = n)
+
+# (b) Plot the time series
+plot(ma1_process, main="Simulated MA(1) Process", ylab="X_t", xlab="Time")
+
+# (c) Estimate the MA(1) parameter using Maximum Likelihood Estimation (MLE)
+ma1_fit <- arima(ma1_process, order = c(0,0,1))  # MA(1) model
+
+# Display the results
+print(ma1_fit)
+
+# Extract and print the estimated parameter
+cat("Estimated MA(1) parameter (theta):", ma1_fit$coef[1], "\n")
+
+# (i) Plot the ACF and PACF of the MA(1) process
+
+# Plot ACF
+acf(ma1_process, main = "ACF of MA(1) Process")
+
+# Plot PACF
+pacf(ma1_process, main = "PACF of MA(1) Process")
+
+
+
+# Load necessary library
+library(forecast)
+
+# Simulate the MA(1) process (you can skip this if you have the data already)
+set.seed(123)
+theta <- 0.5  # MA(1) parameter
+n <- 100
+ma1_process <- arima.sim(model = list(ma = theta), n = n)
+
+# (i) Fit MA(1) model to the data
+ma1_model <- arima(ma1_process, order = c(0, 0, 1))  # Fit MA(1) model
+
+# Alternatively, you could fit an MA(2) model using the following line:
+# ma2_model <- arima(ma1_process, order = c(0, 0, 2))  # Fit MA(2) model
+
+# Print the model summary
+summary(ma1_model)  # Change to ma2_model if fitting MA(2)
+
+# (ii) Forecast the next 10 observations
+ma1_forecasts <- forecast(ma1_model, h = 10)
+
+# Print the forecasted values
+print(ma1_forecasts)
+
+# Plot the forecast
+plot(ma1_forecasts, main="Forecast for Next 10 Observations (MA(1) Model)", 
+     xlab="Time", ylab="X_t")
+
+?arima
+
+
+
+
