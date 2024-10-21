@@ -1,0 +1,37 @@
+#2) MODEL IDETIFICATION
+#A)
+# Create the sales data
+sales_data <- c(200, 220, 240, 210, 230, 250, 300, 270, 260, 280, 310, 330, 
+                220, 230, 250, 240, 260, 280, 320, 300, 290, 310, 330, 350, 
+                240, 250, 270, 260, 280, 300, 340, 320, 310, 330, 350, 370, 
+                260, 270, 290, 280, 300, 320, 360, 340, 330, 350, 370, 390, 
+                280, 290, 310, 300, 320, 340, 380, 360, 350, 370, 390, 410)
+
+# Convert to time series object
+
+sales_ts <- ts(sales_data, start = c(2019, 1), frequency = 12)
+
+# Plot the sales data
+plot(sales_ts, main = "Monthly Sales Data", xlab = "Time", ylab = "Sales", col = "blue", lwd = 2)
+
+# Observations: Check for seasonality and trend by inspecting the plot
+
+#B]
+# Differencing to remove trend
+diff_sales_ts <- diff(sales_ts, differences = 1)
+plot(diff_sales_ts, main = "Differenced Sales Data", xlab = "Time", ylab = "Differenced Sales")
+# Perform Augmented Dickey-Fuller test for stationarity
+library(tseries)
+adf_test <- adf.test(sales_ts)
+print(adf_test)
+# If p-value > 0.05, differencing is needed (non-stationary).
+
+#B)
+# Seasonal differencing can be checked by examining the ACF plot
+Acf(sales_ts)
+# Look for seasonal lags in the ACF plot (e.g., significant peaks at 12 months).
+
+#c)
+# ACF and PACF plots
+Acf(diff_sales_ts, main="ACF of Differenced Sales Data")
+Pacf(diff_sales_ts, main="PACF of Differenced Sales Data")
