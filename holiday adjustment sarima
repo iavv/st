@@ -1,0 +1,20 @@
+#6)
+
+#a)
+# Suppose you have a holiday variable (1 for holiday, 0 for non-holiday)
+# Add holiday variable as external regressor
+holiday_effect <- c(rep(0, 11), 1, rep(0, 11), 1, rep(0, 11), 1, rep(0, 11), 1, rep(0, 11), 1)
+
+# Fit SARIMA with external regressors
+sarima_with_holiday <- auto.arima(sales_ts, xreg = holiday_effect, seasonal = TRUE)
+summary(sarima_with_holiday)
+
+
+#b)
+# Compare the SARIMA with and without holiday adjustments using AIC, BIC, and RMSE
+sarima_holiday_aic <- AIC(sarima_with_holiday)
+sarima_holiday_bic <- BIC(sarima_with_holiday)
+sarima_holiday_rmse <- sqrt(mean(residuals(sarima_with_holiday)^2))
+
+print(paste("SARIMA with holiday AIC:", sarima_holiday_aic, "BIC:", sarima_holiday_bic, "RMSE:", sarima_holiday_rmse))
+
