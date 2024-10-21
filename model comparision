@@ -1,0 +1,23 @@
+#5) Model Comparison
+
+#a)
+# Fit ARIMA without seasonality
+arima_model <- auto.arima(sales_ts, seasonal = FALSE)
+summary(arima_model)
+
+#b)
+# Compare models using AIC, BIC, and RMSE
+sarima_aic <- AIC(sarima_model)
+print(sarima_aic)
+arima_aic <- AIC(arima_model)
+
+sarima_bic <- BIC(sarima_model)
+arima_bic <- BIC(arima_model)
+
+sarima_rmse <- sqrt(mean(residuals(sarima_model)^2))
+arima_rmse <- sqrt(mean(residuals(arima_model)^2))
+
+print(paste("SARIMA AIC:", sarima_aic, "BIC:", sarima_bic, "RMSE:", sarima_rmse))
+print(paste("ARIMA AIC:", arima_aic, "BIC:", arima_bic, "RMSE:", arima_rmse))
+
+#c)
